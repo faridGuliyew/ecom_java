@@ -122,7 +122,7 @@
 
                 <div class="col-md-5 ml-auto">
                     <div class="p-3 border">
-                        <img src="data:image/jpg;base64,${product.base64Image}" alt="image" width="100%">
+                        <img src="${product.image}" alt="image" width="100%">
                     </div>
                 </div>
             </div>

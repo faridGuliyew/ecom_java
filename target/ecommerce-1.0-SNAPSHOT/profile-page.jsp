@@ -32,7 +32,7 @@
                                 <label class="m-0" for="imgInp">
                                     <figure class="d-flex justify-content-center m-0">
                                         <c:if test="${account.base64Image != null}">
-                                            <img class="icon" src="data:image/jpg;base64,${account.base64Image}"
+                                            <img class="icon" src="${account.image}"
                                                  id="blah"
                                                  data-toggle="dropdown" alt="image"
                                                  style="width: 15em; height: 15em; border-radius: 50%;">

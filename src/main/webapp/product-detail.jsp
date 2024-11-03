@@ -10,77 +10,56 @@
 <div class="site-wrap">
     <jsp:include page="templates/header.jsp"/>
 
-    <div class="bg-light py-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong
-                        class="text-black">${product.name}</strong></div>
-            </div>
-        </div>
-    </div>
 
-    <div class="site-section">
+    <!-- Product Detail Section -->
+    <div class="site-section py-5">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-center">
+                <!-- Product Image Section -->
                 <div class="col-md-6">
-                    <img src="data:image/jpg;base64,${product.base64Image}" alt="Image" class="img-fluid">
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" class="img-fluid rounded" style="border: 2px solid #f0c14b; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">
+                    </div>
                 </div>
 
+                <!-- Product Info Section -->
                 <div class="col-md-6">
-                    <h2 class="text-black">${product.name}</h2>
+                    <h1 class="text-dark font-weight-bold">${product.name}</h1>
+                    <p class="text-muted mb-4">${product.description}</p>
+                    <p><strong class="text-danger h4">$${product.price}</strong></p>
 
-                    <p>${product.description}</p>
-
-                    <p><strong class="text-primary h4">$${product.price}</strong></p>
-
+                    <!-- Quantity Selection Form -->
                     <form action="cart?product-id=&quantity=" method="get">
-                        <div class="mb-3">
-                            <div class="input-group mb-3" style="max-width: 200px;">
-                                <input name="product-id" value="${product.id}" type="hidden">
-
+                        <div class="d-flex align-items-center mb-3">
+                            <input name="product-id" value="${product.id}" type="hidden">
+                            <div class="input-group" style="max-width: 200px;">
                                 <div class="input-group-prepend">
-                                    <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                                    <button class="btn btn-warning js-btn-minus" type="button">&minus;</button>
                                 </div>
-
-                                <input id="quantity" name="quantity" type="text" class="form-control text-center"
-                                       value="1" placeholder="" aria-label="Example text with button addon"
-                                       aria-describedby="button-addon1" style="max-width: 50px">
-
+                                <input id="quantity" name="quantity" type="text" class="form-control text-center" value="1" style="max-width: 50px;">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                                    <button class="btn btn-warning js-btn-plus" type="button">&plus;</button>
                                 </div>
-
-                                <label for="quantity" class="form-label text-black">
-                                    Available products: ${product.amount}
-                                </label>
                             </div>
+                            <label class="ml-3 text-black" style="white-space: nowrap;">Available: <strong>${product.amount}</strong></label>
                         </div>
-
                         <p>
-                            <button type="submit" class="buy-now btn btn-sm btn-primary" ${disabled}>
-                                Add To Cart
-                            </button>
+                            <button type="submit" class="btn btn-lg btn-success" ${disabled}>Add To Cart</button>
                         </p>
                     </form>
                 </div>
             </div>
 
+            <!-- Stock Alert -->
             <c:if test="${alert}">
                 <div class="row justify-content-center mt-3">
-                    <div class="alert alert-danger d-flex justify-content-center" role="alert"
-                         data-aos="fade-up" style="max-width: 800px; min-width: 600px">
-                        <strong class="font-weight-bold">
-                            There are only ${product.amount} available in stock!
-                        </strong>
+                    <div class="alert alert-warning d-flex justify-content-center" role="alert" style="max-width: 800px; min-width: 600px;">
+                        <strong class="font-weight-bold">Only ${product.amount} left in stock!</strong>
                     </div>
                 </div>
             </c:if>
         </div>
     </div>
-
-    <jsp:include page="templates/featured-products.jsp"/>
-
-    <jsp:include page="templates/footer.jsp"/>
 </div>
 
 <jsp:include page="templates/scripts.jsp"/>

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDao {
-    Connection connection = null;
+    Connection connection = new Database().getConnection();;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
@@ -34,7 +34,7 @@ public class OrderDao {
         int orderId = 0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = new Database().getConnection();
+//            connection = new Database().getConnection();
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -70,7 +70,7 @@ public class OrderDao {
 
     // Method to insert order information to database.
     public void createOrder(int accountId, double totalPrice, List<CartProduct> cartProducts) {
-        connection = new Database().getConnection();
+//        connection = new Database().getConnection();
         String query = "INSERT INTO `order` (fk_account_id, order_total) VALUES (?, ?);";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -94,7 +94,7 @@ public class OrderDao {
         String query = "SELECT * FROM order_detail WHERE fk_product_id = " + productId;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = new Database().getConnection();
+//            connection = new Database().getConnection();
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -117,7 +117,7 @@ public class OrderDao {
         String query = "SELECT * FROM `order` WHERE fk_account_id = " + accountId;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = new Database().getConnection();
+//            connection = new Database().getConnection();
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -140,7 +140,7 @@ public class OrderDao {
         String query = "SELECT * FROM order_detail WHERE fk_order_id = " + orderId;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = new Database().getConnection();
+//            connection = new Database().getConnection();
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

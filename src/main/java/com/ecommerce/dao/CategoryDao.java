@@ -15,13 +15,22 @@ public class CategoryDao {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
+    public CategoryDao() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = new Database().getConnection();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     // Method to set amount of products for category.
     private void queryCategoryProductAmount(Category category) {
         int productId = category.getId();
         String query = "SELECT COUNT(*) FROM product WHERE fk_category_id = " + productId + " AND product_is_deleted = false";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = new Database().getConnection();
+//            connection = new Database().getConnection();
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -39,7 +48,7 @@ public class CategoryDao {
         String query = "SELECT * FROM category WHERE category_id = " + categoryId;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = new Database().getConnection();
+//            connection = new Database().getConnection();
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -62,7 +71,7 @@ public class CategoryDao {
         String query = "SELECT * FROM category";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = new Database().getConnection();
+//            connection = new Database().getConnection();
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

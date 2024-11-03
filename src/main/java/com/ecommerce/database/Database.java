@@ -7,7 +7,7 @@ public class Database {
     public Connection getConnection() {
         Connection conn;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jsp-servlet-ecommerce-website", "root", "DELLg155515");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jsp-servlet-ecommerce-website", "root", "");
             return conn;
         } catch (Exception e) {
             System.out.println(e.getMessage());

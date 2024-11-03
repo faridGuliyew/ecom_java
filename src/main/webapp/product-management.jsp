@@ -41,7 +41,7 @@
                             <c:forEach items="${product_list}" var="o">
                                 <tr>
                                     <td class="product-thumbnail">
-                                        <img src="data:image/jpg;base64,${o.base64Image}" alt="Image" class="img-fluid">
+                                        <img src="${o.image}" alt="Image" class="img-fluid">
                                     </td>
 
                                     <td>${o.id}</td>

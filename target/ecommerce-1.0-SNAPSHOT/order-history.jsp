@@ -10,50 +10,22 @@
 <div class="site-wrap">
     <jsp:include page="templates/header.jsp"/>
 
-    <div class="bg-light py-3">
+    <div class="site-section py-5" data-aos="fade-in">
         <div class="container">
+            <h2 class="h4 text-center mb-4 text-black">Your Order History</h2>
             <div class="row">
-                <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong
-                        class="text-black">Order history</strong></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="site-section" data-aos="fade-in">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-md-12">
-                    <div class="site-blocks-table">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Total</th>
-                                <th>Date</th>
-                                <th style="min-width: 195px">Detail</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${order_list}" var="o">
-                                <tr>
-                                    <td>${o.id}</td>
-
-                                    <td>$${o.total}</td>
-
-                                    <td>${o.date}</td>
-
-                                    <td>
-                                        <a href="order-detail?order-id=${o.id}" class="btn btn-primary btn-sm"
-                                           style="background-color: green ; border-color: green">
-                                            <span class="icon icon-arrow-right"></span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+                <c:forEach items="${order_list}" var="o">
+                    <div class="col-md-6 mb-4">
+                        <div class="card shadow-sm border-light">
+                            <div class="card-body">
+                                <h5 class="card-title">Order ID: ${o.id}</h5>
+                                <p class="card-text"><strong>Total:</strong> $${o.total}</p>
+                                <p class="card-text"><strong>Date:</strong> ${o.date}</p>
+                                <a href="order-detail?order-id=${o.id}" class="btn btn-success">View Details</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </div>

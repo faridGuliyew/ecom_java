@@ -10,142 +10,71 @@
 <div class="site-wrap">
     <jsp:include page="templates/header.jsp"/>
 
-    <div class="bg-light py-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 mb-0">
-                    <a href="/"> Home </a>
-                    <span class="mx-2 mb-0">/</span>
-
-                    <a href="cart.jsp">Cart</a>
-                    <span class="mx-2 mb-0">/</span>
-
-                    <strong class="text-black">Checkout</strong>
-                </div>
-            </div>
+    <div class="bg-dark py-4">
+        <div class="container text-center">
+            <h1 class="text-white mb-2">Checkout Your Items</h1>
+            <p class="text-light">Review and finalize your order below.</p>
         </div>
     </div>
 
-    <div class="site-section">
+    <div class="site-section py-5">
         <div class="container">
-            <form class="row" method="post" action="checkout">
-                <div class="col-md-6 mb-5 mb-md-0">
-                    <h2 class="h3 mb-3 text-black">Billing Details</h2>
-
-                    <div class="p-3 p-lg-5 border">
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label for="first-name" class="text-black">
-                                    First Name <span class="text-danger">*</span>
-                                </label>
-
-                                <input type="text" class="form-control" id="first-name" name="first-name"
-                                       value="${account.firstName}" required>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="last-name" class="text-black">
-                                    Last Name <span class="text-danger">*</span>
-                                </label>
-
-                                <input type="text" class="form-control" id="last-name" name="last-name"
-                                       value="${account.lastName}" required>
-                            </div>
+            <form method="post" action="checkout" class="checkout-form bg-light p-4 rounded shadow-sm">
+                <div class="col-md-12 mb-4">
+                    <h2 class="h4 mb-4 text-black">Order Summary</h2>
+                    <div class="border p-4 rounded">
+                        <div class="order-summary">
+                            <c:forEach items="${order.cartProducts}" var="o">
+                                <div class="order-item d-flex justify-content-between mb-3">
+                                    <div>
+                                        <strong>${o.product.name}</strong><br>
+                                        <span class="text-muted">Price: $${o.price}</span><br>
+                                        <span class="text-muted">Qty: ${o.quantity}</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-black font-weight-bold">Total: $${o.price * o.quantity}</span>
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <label for="address" class="text-black">
-                                    Address <span class="text-danger">*</span>
-                                </label>
-
-                                <input type="text" class="form-control" id="address" name="address"
-                                       value="${account.address}" required>
-                            </div>
+                        <hr>
+                        <div class="order-total d-flex justify-content-between">
+                            <h4 class="text-black">Order Total</h4>
+                            <strong class="text-black">$${total_price}</strong>
                         </div>
-
-                        <div class="form-group row mb-5">
-                            <div class="col-md-6">
-                                <label for="email" class="text-black">
-                                    Email Address <span class="text-danger">*</span>
-                                </label>
-
-                                <input type="text" class="form-control" id="email" name="email"
-                                       value="${account.email}" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="phone" class="text-black">
-                                    Phone <span class="text-danger">*</span>
-                                </label>
-
-                                <input type="text" class="form-control" id="phone" name="phone"
-                                       value="${account.phone}" required>
-                            </div>
+                        <div class="form-group mt-4">
+                            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="collapse" data-target="#billingDetails">
+                                Proceed to Billing
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="row mb-5">
-                        <div class="col-md-12">
-                            <h2 class="h3 mb-3 text-black">Your Order</h2>
-
-                            <div class="p-3 p-lg-5 border">
-                                <table class="table site-block-order-table mb-5">
-                                    <thead>
-                                    <tr>
-                                        <th style="text-align: center">Product</th>
-                                        <th style="text-align: center">Price</th>
-                                        <th style="text-align: center">Quantity</th>
-                                        <th style="text-align: center">Total</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-                                    <c:forEach items="${order.cartProducts}" var="o">
-                                        <tr>
-                                            <td>
-                                                <input name="product-name" class="form-control-plaintext h5 text-black"
-                                                       value="${o.product.name}" style="text-align: center" readonly>
-                                            </td>
-
-                                            <td>
-                                                <input name="product-price" class="form-control-plaintext h5 text-black"
-                                                       value="${o.price}" style="text-align: center" readonly>
-                                            </td>
-
-                                            <td>
-                                                <input name="product-quantity"
-                                                       class="form-control-plaintext h5 text-black"
-                                                       value="${o.quantity}" style="text-align: center" readonly>
-                                            </td>
-
-                                            <td>
-                                                <input name="product-total" class="form-control-plaintext h5 text-black"
-                                                       value="${o.price * o.quantity}" style="text-align: center"
-                                                       readonly>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                                        <td class="text-black font-weight-bold">
-                                            <input name="order-total-price" class="form-control-plaintext h5 text-black"
-                                                   value="${total_price}" style="text-align: center" readonly>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-lg py-3 btn-block">
-                                        Place Order
-                                    </button>
-                                </div>
-                            </div>
+                <div id="billingDetails" class="collapse mt-4">
+                    <h2 class="h4 mb-4 text-black">Billing Information</h2>
+                    <div class="border p-4 rounded">
+                        <div class="form-group">
+                            <label for="first-name" class="text-black">First Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="first-name" name="first-name" value="${account.firstName}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name" class="text-black">Last Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="last-name" name="last-name" value="${account.lastName}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="text-black">Address <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="address" name="address" value="${account.address}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="text-black">Email Address <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" name="email" value="${account.email}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="phone" name="phone" value="${account.phone}" required>
+                        </div>
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-success btn-lg btn-block">Place Your Order</button>
                         </div>
                     </div>
                 </div>
@@ -157,5 +86,11 @@
 </div>
 
 <jsp:include page="templates/scripts.jsp"/>
+<script>
+    // Optional: Script to automatically expand the billing details when the page loads if needed
+    // $(document).ready(function() {
+    //     $('#billingDetails').collapse('show');
+    // });
+</script>
 </body>
 </html>
